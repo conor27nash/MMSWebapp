@@ -2,7 +2,7 @@
 	import { onMount } from "svelte";
 	import { Route, Router, link } from "svelte-routing";
 	import Home from "./Home.svelte"
-	import Configuration from "./Configuration.svelte";
+	import Configuration from "./Configuration/Configuration.svelte";
 	import Graphs from "./Graphs.svelte"
 
 	// Show mobile icon and display menu
