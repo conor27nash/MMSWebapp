@@ -21,7 +21,7 @@ jobs:
       
     - uses: azure/login@v1
       with:
-          creds: ${{ secrets.AZURE_CRED_MSDN }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
     
     - name: Upload to blob storage
       uses: azure/CLI@v1
