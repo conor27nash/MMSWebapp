@@ -3,19 +3,14 @@
 	import { onMount } from "svelte";
 	import Modify from "./modify.svelte";
 	import New from "./new.svelte";
+	
 
 	let allConfigs;
-	export let status: string;
+	let status: string;
 	let SelectValue = 0;
 	let selectModify = (num) => () => (SelectValue = num);
-	let logMultiplier = 1;
-	let upsertConfig: string = `https://mmsdata.azurewebsites.net/api/MMSConfigUpsert`;
 
-	export const config = {
-		id: "",
-		log_interval: 0,
-		data_post_api: "",
-	};
+	console.log("select value: ", SelectValue);
 
 	onMount(async () => {
 		await fetch(
@@ -27,7 +22,9 @@
 			});
 		console.log(allConfigs);
 	});
-
+	let changeStatus = (event) => {
+		status = event.detail.status;
+	};
 	let statusNew = () => {
 		status = "new";
 	};
@@ -62,8 +59,9 @@
 							<button
 								type="button"
 								class="btn btn-primary"
+								on:click={selectModify(i)}
 								on:click={statusModify}
-								on:click={selectModify(i)}>Modify</button
+								>Modify</button
 							>
 						</td>
 					</tr>
@@ -84,11 +82,11 @@
 	{/if}
 
 	{#if status == "new"}
-		<New />
+		<New on:status={changeStatus} />
 	{/if}
 
 	{#if status == "modify"}
-		<Modify />
+		<Modify {SelectValue} {allConfigs} on:status={changeStatus} />
 	{/if}
 </main>
 <link
